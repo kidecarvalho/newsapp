@@ -1,0 +1,113 @@
+
+
+  {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+   
+    <link rel="stylesheet" type="text/css" href="{% static 'css/app.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+    <title>News APP</title>
+</head>
+<body> 
+    {% block content %}
+   <nav class="nav-info navbar"> 
+          <div id="img-logo">
+            <a href="{% url 'home' %}" title="home">
+                <img id="logo" src="{% static 'images/logo.png' %}" alt="logo">
+            </a> 
+        </div>        
+        <div class="links-nav">
+            <ul class="list-group-nav">
+                <li class="list-group-item"> <a class="btn btn-info" href="{% url 'home' %}?category=business">Business </a></li>
+                <li class="list-group-item"> <a class="btn btn-danger" href="{% url 'home' %}?category=entertainment">Entertainment </a></li>
+                <li class="list-group-item"> <a class="btn btn-primary" href="{% url 'home' %}?category=general">General </a></li>
+                <li class="list-group-item"> <a class="btn btn-success" href="{% url 'home' %}?category=health">Health</a></li>
+                <li class="list-group-item"> <a class="btn btn-secondary" href="{% url 'home' %}?category=Science">Science</a></li>
+                <li class="list-group-item"> <a class="btn btn-primary" href="{% url 'home' %}?category=Sports">Sports</a></li>
+                <li class="list-group-item"> <a class="btn btn-secondary" href="{% url 'home' %}?category=technology">Technology</a></li>
+            </ul>       
+        </div>  
+        <div class="form-area search-bar">
+            <form class="form-details" action="" method="get">
+                <input type="text" name="country" placeholder="Search by Country...">
+                <input type="text" name="category" placeholder="Search by Category...">
+                <button class="btn-search" type="submit" value="Search">Search</button>
+            </form>   
+        </div> 
+
+  </nav> 
+ 
+
+
+    <div class="topheadline-category-heading">
+        <h2 class="topheadline-heading">Topheadlines</h2>
+    </div> 
+    <!-- additional headings for section class media-scroller snaps-inline -->
+    <section class="section-1 snaps-inline ">
+        {% for i in articles %}   
+        <div class="block-division1">
+            <div class="main-news-container media-element">
+                <div class="image-container">
+                    <img class="news-img" src="{{ i.urlToImage }}" alt="News Image">
+                </div>
+                <div class="overview-info"> 
+                                
+                    <p class="author-name"><span class="pre-titles">By: </span>{{ i.author }}</p>
+                    <br>
+                    <div class="news-heading">
+                        <h4 class="news-heading-info">{{ i.title|truncatechars:80 }}</h4>
+                    </div>               
+                    <br>
+                    <div class="source-desc-info">
+                        <p class="source-name-info"><span class="pre-titles">News source: </span>{{ i.source.name }}</p>
+                        <p class="news-sumary">{{ i.description|truncatechars:150 }}</p>
+                    </div>
+                    
+                    <br>
+                <div class="read-more-section">
+                    <small class="publication-date-p"><span class="pre-titles">Date: </span> {{ i.publishedAt }}</small>
+                    <a href="{{ i.url }}" target="_blank" class="btn-read-more">Read more</a>
+                </div>            
+                    
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </section>
+        
+    <footer class="footer">
+        
+         <p class="paragraph-footer"><span class="details-footer">Author: </span>  Kundi De Carvalho</p>
+         <p class="paragraph-footer"><span class="details-footer">email: </span><a href="mailto:decarvalho.kundi@gmail.com">decarvalho.kundi@gmail.com</a></p> 
+         <div class="list-of-countries">
+             <h5 class="paragraph-footer">List of supported countries</h5>
+             <p class="paragraph-footer">ae, ar,  at, au, be, bg,  br, ca. ch, cn, co, cu, cz, de, eg, fr, gb, gr, hk, hu, id, ie, il, in, it, jp, kr, lt, lv, ma, mx, my, ng, nl, no, nz, ph, pl, pt, ro, rs, ru, sa, se, sg, si, sk, th, tr, tw, ua, us, ve, za.</p>
+         </div>
+         <div class="list-of-categories">
+             <h5 class="paragraph-footer">List of supported categories</h5>
+             <p class="paragraph-footer">Business, Entertainment, General, Health, Science, Sports, Technology.</p>
+         </div>
+         <br><br>
+         <div class="attributions">
+            <p>News Source: <a href="https://newsapi.org" target="blank"><img class="attributions-logo" src="{% static 'images/newsAPI-logo.png' %}" alt="Django image"></a></p>
+            <p>Made with: </p>
+            <div>
+               <a href="https://docs.djangoproject.com/en/4.1/" target="blank"><img class="attributions-logo" src="{% static 'images/django_img.png' %}" alt="Django image"></a>
+               <a href="https://www.python.org/doc/" target="blank"><img class="python-logo" src="{% static 'images/python_logo.png' %}" alt="Django image"></a>
+            </div>
+        </div>
+        <br>
+         <p class="paragraph-footer copyright-info"> &copy; {{year}} KC Intuitive Tools Lab. All rights reserved.</p>       
+    </footer>
+  
+            {% endblock %}            
+  
+   
+    <!-- <script src="{% static '/app.js' %}"></script> -->
+</body>
+</html>
